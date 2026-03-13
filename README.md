@@ -1,164 +1,54 @@
 # Cerebro NeuroTech — Demo Landing Page v0
 
-**Owner:** Yousuf  
-**Reviewer:** Master Control  
-**Version:** v0.1.0  
-**Date:** March 2026
+A standalone front-end prototype for the Cerebro TBI demo entry point. Select a clinical scenario, view mock session details, and reset to baseline.
+
+**Stack:** React · TypeScript · Vite  
+**Data:** Local mock only — no backend, no real patient data
 
 ---
 
-## Project Summary
+## Run Locally
 
-This is a standalone front-end prototype representing the first entry point into a Cerebro NeuroTech TBI product demo.
+**Prerequisites:** [Node.js](https://nodejs.org) (LTS version)
+```bash
+# 1. Clone the repo
+git clone https://github.com/zuyurk/CeroboNeroTechPrototype.git
 
-The prototype implements a clean, interactive single-page interface that allows a user to:
+# 2. Go into it
+cd CeroboNeroTechPrototype
 
-1. Read a brief intro to the TriScan™ demo platform
-2. Select one of three mock clinical scenarios
-3. View a scenario detail state with synthetic session data and TriScan™ protocol status
-4. Reset back to the landing page at any time
+# 3. Install dependencies
+npm install
 
-All data is local and synthetic. No backend, no auth, no real patient data, no external services.
+# 4. Start the dev server
+npm run dev
+```
 
----
+Open **http://localhost:5173** in your browser.
 
-## Tech Stack
-
-| Layer | Choice |
-|-------|--------|
-| Framework | React 18 |
-| Language | TypeScript (strict) |
-| Bundler | Vite |
-| Styling | Vanilla CSS (design system via CSS variables) |
-| Data | Local mock objects (`src/data/scenarios.ts`) |
-| State | React `useState` — no external state library |
+> **No install?** Just open `demo-preview.html` directly in any browser — works with no setup.
 
 ---
 
 ## Project Structure
-
 ```
-cerebro-demo/
-├── index.html
-├── package.json
-├── vite.config.ts
-├── tsconfig.json
-├── tsconfig.node.json
-├── README.md
-└── src/
-    ├── main.tsx              # React entry point
-    ├── App.tsx               # Root component — state machine (landing | detail)
-    ├── App.css               # Full design system + component styles
-    ├── types/
-    │   └── index.ts          # Shared TypeScript types
-    ├── data/
-    │   └── scenarios.ts      # Mock scenario data (3 scenarios)
-    └── components/
-        ├── Header.tsx        # Fixed top navigation bar
-        ├── ScenarioCard.tsx  # Clickable scenario card (landing)
-        └── ScenarioDetail.tsx # Detail view (post-selection)
+src/
+  components/   Header, ScenarioCard, ScenarioDetail
+  data/         scenarios.ts — all mock data lives here
+  App.tsx       state machine: landing → detail → reset
+  App.css       design system (CSS variables)
 ```
 
 ---
 
-## Local Setup & Run Instructions
+## Scenarios
 
-### Prerequisites
-
-- Node.js v18 or higher
-- npm v9 or higher
-
-Verify:
-```bash
-node --version
-npm --version
-```
-
-### Install
-
-```bash
-cd cerebro-demo
-npm install
-```
-
-### Run Dev Server
-
-```bash
-npm run dev
-```
-
-Open your browser to: **http://localhost:5173**
-
-### Build (optional)
-
-```bash
-npm run build
-npm run preview   # preview production build locally
-```
-
----
-
-## Demo Walkthrough
-
-### Step 1 — Landing Page
-On load, you see the intro header with the prototype title, a short description, and three key stats. Below are three scenario cards.
-
-### Step 2 — Select a Scenario
-Click any card (or its **START DEMO** button) to enter the detail view. Each card represents a distinct clinical use case:
-
-| Scenario | Profile | Priority |
-|----------|---------|----------|
+| Scenario | Type | Priority |
+|----------|------|----------|
 | Pediatric Athlete | Youth Football, Age 14 | HIGH |
 | Adult Concussion Follow-Up | Recreational Soccer, Age 31 | MEDIUM |
 | Sideline Evaluation | Professional Football, Age 26 | CRITICAL |
 
-### Step 3 — Detail View
-Shows session info, status, next step, metadata, and a TriScan™ protocol layer tracker. Each scenario has a different protocol state to demonstrate progression (pending, active, complete).
-
-### Step 4 — Reset
-Click **↺ RESET DEMO** (bottom of detail view) or **← BACK TO SCENARIOS** (top) to return to the landing page.
-
 ---
 
-## Assumptions
-
-- This is a visual prototype only. No logic, scoring, or clinical computation is implemented.
-- All scenario data is hard-coded in `src/data/scenarios.ts`. Adding or editing scenarios only requires changes to that file.
-- The TriScan™ layer states (complete / active / pending) are static per scenario to illustrate different protocol stages.
-- Fonts are loaded from Google Fonts via CDN. An internet connection is required for the font to render correctly (layout still functions without it).
-- No routing library is used. View state is managed with a single `useState` call in `App.tsx`.
-
----
-
-## Known Limitations
-
-- Mobile layout is functional but not the primary design target. Cards stack to single column below 900px.
-- No transition animation between scenario cards (selecting a second scenario while in detail view requires resetting first).
-- No loading states — all data is synchronous and local.
-- Screenshots are static and do not reflect any live session.
-
----
-
-## Screenshots
-
-See `/screenshots/` folder:
-
-| File | Description |
-|------|-------------|
-| `01-landing.png` | Landing page — all three scenario cards visible |
-| `02-card-hover.png` | Hover state on Sideline Evaluation card |
-| `03-detail-pediatric.png` | Detail view — Pediatric Athlete scenario |
-| `04-detail-sideline.png` | Detail view — Sideline Evaluation (Critical, active blood panel) |
-| `05-reset.png` | State after Reset — back to landing baseline |
-
----
-
-## Stretch Goal Completed
-
-The scenario detail view includes a **TriScan™ Layers tracker** that shows which of the three diagnostic layers (Helmet Scan, Cognitive Test, Blood Panel) are complete, in progress, or pending — unique per scenario. This serves as a lightweight scenario selector state badge showing believable protocol progression.
-
----
-
-## Disclaimer
-
-> This prototype uses synthetic mock data only. No real patient information is included. This is a front-end demonstration and is not connected to any backend, database, clinical system, or production environment.
+> Mock data only. No real patient information. Demo environment.
